@@ -10,11 +10,45 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
-// toggle prayer row completion on the server and in the DOM
+function toIsoDate(date) {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+}
+
+function formatDisplayDate(isoDate) {
+  const date = new Date(`${isoDate}T00:00:00`);
+  return date.toLocaleDateString(undefined, {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric'
+  });
+}
+
+const taskList = document.getElementById('task-list');
+const emptyState = document.getElementById('empty-state');
+const displayDate = document.getElementById('display-date');
+const taskDateInput = document.getElementById('task-date');
+
+const todayIso = toIsoDate(new Date());
+let selectedDate = todayIso;
+
+function renderSelectedDate() {
+  displayDate.textContent = formatDisplayDate(selectedDate);
+  taskDateInput.value = selectedDate;
+}
+
+function updateEmptyState() {
+  emptyState.style.display = taskList.children.length ? 'none' : 'block';
+}
+
 function toggleTaskStatus(taskId) {
   fetch(`/api/v1/tasks/${taskId}`, { method: 'PATCH' })
-    .then((response) => {
-      if (!response.ok) {
+    .then((response) => response.json())
+    .then((data) => {
+      if (!data.task) {
         return;
       }
       const row = document.querySelector(`li[data-task-id="${taskId}"]`);
@@ -23,9 +57,8 @@ function toggleTaskStatus(taskId) {
       }
     });
 }
-// add item to todo list
+
 function addTaskToList(task) {
-  const taskList = document.getElementById('task-list');
   const li = document.createElement('li');
   li.setAttribute('data-task-id', task.id);
   if (task.status === 'completed') {
@@ -46,6 +79,27 @@ function addTaskToList(task) {
   taskList.appendChild(li);
 }
 
+function renderTasksForDate(tasks) {
+  taskList.innerHTML = '';
+  tasks
+    .filter((task) => {
+      const taskDate = task.task_date || todayIso;
+      return taskDate === selectedDate;
+    })
+    .forEach((task) => {
+      addTaskToList(task);
+    });
+  updateEmptyState();
+}
+
+function loadTasks() {
+  fetch('/api/v1/tasks')
+    .then((response) => response.json())
+    .then((data) => {
+      renderTasksForDate(data.tasks || []);
+    });
+}
+
 const prayerSelect = document.getElementById('prayer-name');
 const customPrayerInput = document.getElementById('custom-prayer');
 
@@ -60,11 +114,11 @@ prayerSelect.addEventListener('change', () => {
 });
 
 function resolvePrayerTitle() {
-  const v = prayerSelect.value;
-  if (v === '__other__') {
+  const selectedValue = prayerSelect.value;
+  if (selectedValue === '__other__') {
     return customPrayerInput.value.trim();
   }
-  return v;
+  return selectedValue;
 }
 
 const taskForm = document.getElementById('task-form');
@@ -84,26 +138,16 @@ taskForm.addEventListener('submit', (event) => {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ title: taskTitle, priority: taskPriority })
+    body: JSON.stringify({ title: taskTitle, priority: taskPriority, task_date: selectedDate })
   })
     .then((response) => response.json())
-    .then((data) => {
+    .then(() => {
       prayerSelect.selectedIndex = 0;
       customPrayerInput.value = '';
       customPrayerInput.classList.remove('visible');
-      addTaskToList(data.task);
+      loadTasks();
     });
 });
-
-function loadTasks() {
-  fetch('/api/v1/tasks')
-    .then((response) => response.json())
-    .then((data) => {
-      data.tasks.forEach((task) => {
-        addTaskToList(task);
-      });
-    });
-}
 
 function removeTask(taskId) {
   fetch(`/api/v1/tasks/${taskId}`, { method: 'DELETE' }).then((response) => {
@@ -114,6 +158,7 @@ function removeTask(taskId) {
     if (taskRow) {
       taskRow.remove();
     }
+    updateEmptyState();
   });
 }
 
@@ -151,4 +196,24 @@ function editTask(taskId) {
     });
 }
 
+function shiftSelectedDate(days) {
+  const date = new Date(`${selectedDate}T00:00:00`);
+  date.setDate(date.getDate() + days);
+  selectedDate = toIsoDate(date);
+  renderSelectedDate();
+  loadTasks();
+}
+
+document.getElementById('prev-day').addEventListener('click', () => shiftSelectedDate(-1));
+document.getElementById('next-day').addEventListener('click', () => shiftSelectedDate(1));
+
+taskDateInput.addEventListener('change', () => {
+  if (taskDateInput.value) {
+    selectedDate = taskDateInput.value;
+    renderSelectedDate();
+    loadTasks();
+  }
+});
+
+renderSelectedDate();
 loadTasks();

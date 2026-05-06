@@ -15,22 +15,36 @@
 </head>
 <body>
   <div class="container">
-    <h3>Salah tracker</h3>
-    <p class="subtitle">Log and check off your daily prayers.</p>
+    <header class="hero">
+      <p class="hero-label">Prayer Tracker</p>
+      <h3 id="active-prayer">Salah Tracker</h3>
+      <p class="subtitle">Track your daily prayers by date.</p>
+    </header>
 
-    <form id="task-form" method="POST">
+    <section class="date-card">
+      <button type="button" id="prev-day" class="date-nav-btn" aria-label="Previous day">&#8249;</button>
+      <div class="date-meta">
+        <p class="date-label">Selected Date</p>
+        <p id="display-date" class="date-value"></p>
+      </div>
+      <button type="button" id="next-day" class="date-nav-btn" aria-label="Next day">&#8250;</button>
+    </section>
+
+    <form id="task-form" method="POST" class="task-form">
+      <input type="date" id="task-date" class="task-date-input" />
+
       <div class="prayer-form">
         <label for="prayer-name">Salah</label>
         <select id="prayer-name" name="prayer-name" required>
-          <option value="" disabled selected>Select…</option>
-          <option value="Fajr (الفجر)">Fajr — الفجر</option>
-          <option value="Dhuhr (الظهر)">Dhuhr — الظهر</option>
-          <option value="Asr (العصر)">Asr — العصر</option>
-          <option value="Maghrib (المغرب)">Maghrib — المغرب</option>
-          <option value="Isha (العشاء)">Isha — العشاء</option>
-          <option value="__other__">Other (sunnah, nafl…)</option>
+          <option value="" disabled selected>Select prayer...</option>
+          <option value="Fajr">Fajr</option>
+          <option value="Dhuhr">Dhuhr</option>
+          <option value="Asr">Asr</option>
+          <option value="Maghrib">Maghrib</option>
+          <option value="Isha">Isha</option>
+          <option value="__other__">Other</option>
         </select>
-        <input type="text" id="custom-prayer" class="custom-prayer-input" placeholder="e.g. Witr, Tahajjud" aria-label="Other prayer name" />
+        <input type="text" id="custom-prayer" class="custom-prayer-input" placeholder="e.g. Tahajjud, Witr" aria-label="Other prayer name" />
       </div>
 
       <div class="priority-section">
@@ -53,6 +67,7 @@
     </form>
 
     <ul id="task-list"></ul>
+    <p id="empty-state" class="empty-state">No prayers logged for this date.</p>
 
     <p class="footer-link"><a href="{{ url_for('auth.logout') }}">Sign out</a></p>
   </div>

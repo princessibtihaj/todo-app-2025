@@ -8,6 +8,7 @@ from flask import Blueprint, render_template, redirect, url_for
 from flask import request
 from flask_login import login_required, current_user
 from models import db, Task, User
+from datetime import datetime
 
 # Create a blueprint
 main_blueprint = Blueprint('main', __name__)
@@ -40,9 +41,22 @@ def api_get_tasks():
 def api_create_task():
     data = request.get_json()
     priority = data.get('priority', 'medium')
+    task_date = data.get('task_date')
     if priority not in ('low', 'medium', 'high'):
         priority = 'medium'
-    new_task = Task(title=data['title'], priority=priority, user_id=current_user.id)
+    if task_date:
+        try:
+            datetime.strptime(task_date, '%Y-%m-%d')
+        except ValueError:
+            task_date = None
+    create_kwargs = {
+        "title": data['title'],
+        "priority": priority,
+        "user_id": current_user.id
+    }
+    if task_date:
+        create_kwargs["task_date"] = task_date
+    new_task = Task(**create_kwargs)
     db.session.add(new_task)
     db.session.commit()
     return {
@@ -79,12 +93,19 @@ def api_edit_task(task_id):
     data = request.get_json() or {}
     title = (data.get('title') or '').strip()
     priority = data.get('priority')
+    task_date = data.get('task_date')
 
     if title:
         task.title = title
 
     if priority in ('low', 'medium', 'high'):
         task.priority = priority
+    if task_date:
+        try:
+            datetime.strptime(task_date, '%Y-%m-%d')
+            task.task_date = task_date
+        except ValueError:
+            pass
 
     db.session.commit()
     return {"task": task.to_dict()}, 200

@@ -7,6 +7,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from datetime import date
 
 db = SQLAlchemy()
 
@@ -30,6 +31,7 @@ class Task(db.Model):
     title = db.Column(db.String(200), nullable=False)
     status = db.Column(db.String(20), default='not-completed')
     priority = db.Column(db.String(20), nullable=False, default='medium')
+    task_date = db.Column(db.String(10), nullable=False, default=lambda: date.today().isoformat())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def toggle(self):
@@ -46,5 +48,6 @@ class Task(db.Model):
             "title": self.title,
             "status": self.status,
             "priority": self.priority,
+            "task_date": self.task_date,
             "user_id": self.user_id
         }

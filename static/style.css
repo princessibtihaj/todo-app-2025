@@ -6,220 +6,256 @@
  * Global layout, form styles, priority color badges, and list appearance.
  */
 
-/* General Styling */
 body {
-    font-family: system-ui, "Segoe UI", Arial, sans-serif;
-    background-color: #f5f3ef;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-  }
-  
-  .container {
-    background-color: #fffefb;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 340px;
-  }
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: radial-gradient(circle at 80% 10%, #26406d 0%, #081b3c 55%, #04122a 100%);
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #e9eef9;
+}
 
-  .subtitle {
-    margin: 0 0 14px 0;
-    font-size: 13px;
-    color: #555;
-    line-height: 1.35;
-  }
+.container {
+  width: 360px;
+  max-width: calc(100vw - 24px);
+  background: rgba(6, 22, 48, 0.92);
+  border: 1px solid rgba(145, 176, 225, 0.35);
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.35);
+}
 
-  .prayer-form label {
-    display: block;
-    font-size: 14px;
-    margin-bottom: 6px;
-    color: #444;
-  }
+.hero-label {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9cb6e0;
+}
 
-  .prayer-form select {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-  }
+h3 {
+  margin: 4px 0;
+  font-size: 28px;
+  color: #ffffff;
+}
 
-  .custom-prayer-input {
-    display: none;
-    width: 100%;
-    box-sizing: border-box;
-    margin-top: 8px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-  }
+.subtitle {
+  margin: 0 0 12px;
+  color: #9cb6e0;
+  font-size: 13px;
+}
 
-  .custom-prayer-input.visible {
-    display: block;
-  }
+.date-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(12, 42, 84, 0.9);
+  border: 1px solid rgba(144, 174, 218, 0.3);
+  border-radius: 14px;
+  padding: 10px 8px;
+  margin-bottom: 12px;
+}
 
-  .form-actions {
-    margin-top: 12px;
-  }
+.date-nav-btn {
+  border: none;
+  background: transparent;
+  color: #d7e5ff;
+  font-size: 26px;
+  cursor: pointer;
+  line-height: 1;
+  width: 28px;
+}
 
-  .form-actions button {
-    width: 100%;
-    margin-left: 0;
-  }
+.date-meta {
+  text-align: center;
+}
 
-  .footer-link {
-    margin: 16px 0 0 0;
-    text-align: center;
-    font-size: 13px;
-  }
+.date-label {
+  margin: 0;
+  font-size: 11px;
+  color: #9cb6e0;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
 
-  .footer-link a {
-    color: #166534;
-  }
-  
-  h1 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .input-section {
-    display: flex;
-    justify-content: space-between;
-  }
+.date-value {
+  margin: 2px 0 0;
+  font-size: 14px;
+  color: #ffffff;
+  font-weight: 600;
+}
 
-  h3 {
-    margin-top: 0;
-    margin-bottom: 6px;
-  }
+.task-date-input {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  border: 1px solid rgba(147, 178, 225, 0.4);
+  border-radius: 10px;
+  padding: 8px;
+  background: rgba(9, 32, 66, 0.92);
+  color: #dce7ff;
+}
 
-  .priority-section {
-    margin-top: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
+.prayer-form label,
+.priority-section label {
+  display: block;
+  margin-bottom: 6px;
+  color: #ccdfff;
+  font-size: 13px;
+}
 
-  .priority-section label {
-    font-size: 14px;
-    color: #444;
-  }
+.prayer-form select,
+.priority-section select,
+.custom-prayer-input {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid rgba(146, 176, 223, 0.45);
+  border-radius: 10px;
+  padding: 9px;
+  background: rgba(9, 32, 66, 0.92);
+  color: #e3eeff;
+  font-size: 14px;
+}
 
-  .priority-section select {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-  }
+.priority-section {
+  margin-top: 10px;
+}
 
-  .priority-legend {
-    display: flex;
-    gap: 8px;
-  }
+.custom-prayer-input {
+  margin-top: 8px;
+  display: none;
+}
 
-  .priority-badge {
-    font-size: 11px;
-    padding: 3px 8px;
-    border-radius: 999px;
-    color: #1f2937;
-    text-transform: capitalize;
-    white-space: nowrap;
-  }
+.custom-prayer-input.visible {
+  display: block;
+}
 
-  .priority-low {
-    background-color: #dcfce7;
-  }
+.priority-legend {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
 
-  .priority-medium {
-    background-color: #fef3c7;
-  }
+.priority-badge {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  text-transform: capitalize;
+}
 
-  .priority-high {
-    background-color: #fee2e2;
-  }
-  
-  input[type="text"] {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  button {
-    margin-left: 10px;
-    padding: 10px;
-    background-color: #166534;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #14532d;
-  }
-  
-  /* Task List Styling */
-  ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 20px 0 0 0;
-  }
-  
-  li {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 8px;
-  }
+.priority-low {
+  background: #214738;
+  color: #c9f8d9;
+}
 
-  .task-main {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex: 1;
-    min-width: 0;
-    cursor: pointer;
-  }
+.priority-medium {
+  background: #58490f;
+  color: #ffe8a3;
+}
 
-  .task-title {
-    flex: 1;
-    min-width: 0;
-  }
+.priority-high {
+  background: #5f1b28;
+  color: #ffd2de;
+}
 
-  .remove-btn {
-    font-size: 12px;
-    color: #b91c1c;
-    text-decoration: underline;
-    margin-left: 0;
-    cursor: pointer;
-  }
+.form-actions {
+  margin-top: 12px;
+}
 
-  .task-actions {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+button {
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  background: #f4a261;
+  color: #10213f;
+  font-weight: 700;
+  cursor: pointer;
+}
 
-  .edit-btn {
-    margin-left: 0;
-    padding: 6px 10px;
-    background-color: #0ea5e9;
-    font-size: 12px;
-  }
+button:hover {
+  background: #f6b37f;
+}
 
-  .edit-btn:hover {
-    background-color: #0284c7;
-  }
-  
-  li.completed {
-    text-decoration: line-through;
-    color: #aaa;
-  }
-  
+#task-list {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#task-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(143, 175, 223, 0.35);
+  border-radius: 12px;
+  background: rgba(11, 37, 74, 0.95);
+  padding: 10px;
+}
+
+.task-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  min-width: 0;
+}
+
+.task-title {
+  flex: 1;
+  color: #ecf2ff;
+}
+
+.task-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.edit-btn {
+  width: auto;
+  padding: 6px 8px;
+  margin: 0;
+  border-radius: 8px;
+  background: #66a6ff;
+  color: #0e2b58;
+  font-size: 12px;
+}
+
+.edit-btn:hover {
+  background: #7db5ff;
+}
+
+.remove-btn {
+  color: #ffb8c6;
+  font-size: 12px;
+  text-decoration: underline;
+}
+
+#task-list li.completed .task-title {
+  text-decoration: line-through;
+  color: #8ea5c8;
+}
+
+.empty-state {
+  margin: 10px 4px 0;
+  color: #9cb6e0;
+  font-size: 13px;
+}
+
+.footer-link {
+  margin: 14px 0 0;
+  text-align: center;
+  font-size: 13px;
+}
+
+.footer-link a {
+  color: #cddfff;
+}

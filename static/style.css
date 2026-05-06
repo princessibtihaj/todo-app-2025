@@ -1,7 +1,15 @@
+/*
+ * Princess Ibtihaj
+ * CS492
+ * Prof. Madi
+ * style.css
+ * Global layout, form styles, priority color badges, and list appearance.
+ */
+
 /* General Styling */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: system-ui, "Segoe UI", Arial, sans-serif;
+    background-color: #f5f3ef;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,11 +18,68 @@ body {
   }
   
   .container {
-    background-color: white;
+    background-color: #fffefb;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    width: 340px;
+  }
+
+  .subtitle {
+    margin: 0 0 14px 0;
+    font-size: 13px;
+    color: #555;
+    line-height: 1.35;
+  }
+
+  .prayer-form label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: #444;
+  }
+
+  .prayer-form select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  .custom-prayer-input {
+    display: none;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 8px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  .custom-prayer-input.visible {
+    display: block;
+  }
+
+  .form-actions {
+    margin-top: 12px;
+  }
+
+  .form-actions button {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .footer-link {
+    margin: 16px 0 0 0;
+    text-align: center;
+    font-size: 13px;
+  }
+
+  .footer-link a {
+    color: #166534;
   }
   
   h1 {
@@ -25,6 +90,56 @@ body {
   .input-section {
     display: flex;
     justify-content: space-between;
+  }
+
+  h3 {
+    margin-top: 0;
+    margin-bottom: 6px;
+  }
+
+  .priority-section {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .priority-section label {
+    font-size: 14px;
+    color: #444;
+  }
+
+  .priority-section select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  .priority-legend {
+    display: flex;
+    gap: 8px;
+  }
+
+  .priority-badge {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    color: #1f2937;
+    text-transform: capitalize;
+    white-space: nowrap;
+  }
+
+  .priority-low {
+    background-color: #dcfce7;
+  }
+
+  .priority-medium {
+    background-color: #fef3c7;
+  }
+
+  .priority-high {
+    background-color: #fee2e2;
   }
   
   input[type="text"] {
@@ -37,7 +152,7 @@ body {
   button {
     margin-left: 10px;
     padding: 10px;
-    background-color: #28a745;
+    background-color: #166534;
     color: white;
     border: none;
     border-radius: 4px;
@@ -45,7 +160,7 @@ body {
   }
   
   button:hover {
-    background-color: #218838;
+    background-color: #14532d;
   }
   
   /* Task List Styling */
@@ -61,6 +176,46 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 8px;
+  }
+
+  .task-main {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+    cursor: pointer;
+  }
+
+  .task-title {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .remove-btn {
+    font-size: 12px;
+    color: #b91c1c;
+    text-decoration: underline;
+    margin-left: 0;
+    cursor: pointer;
+  }
+
+  .task-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .edit-btn {
+    margin-left: 0;
+    padding: 6px 10px;
+    background-color: #0ea5e9;
+    font-size: 12px;
+  }
+
+  .edit-btn:hover {
+    background-color: #0284c7;
   }
   
   li.completed {

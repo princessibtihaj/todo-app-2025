@@ -1,3 +1,9 @@
+# Princess Ibtihaj
+# CS492
+# Prof. Madi
+# models.py
+# SQLAlchemy models for User and Task (salah/task rows).
+
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -23,6 +29,7 @@ class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
     status = db.Column(db.String(20), default='not-completed')
+    priority = db.Column(db.String(20), nullable=False, default='medium')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def toggle(self):
@@ -38,5 +45,6 @@ class Task(db.Model):
             "id": self.id,
             "title": self.title,
             "status": self.status,
+            "priority": self.priority,
             "user_id": self.user_id
         }

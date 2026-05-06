@@ -1,14 +1,22 @@
 <!DOCTYPE html>
+<!--
+  Princess Ibtihaj
+  CS492
+  Prof. Madi
+  login.html
+  Login page for authenticated access to the tracker.
+-->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
+  <title>Login · Salah tracker</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
   <div class="container">
-    <h3>Login</h3>
+    <h3>Salah tracker</h3>
+    <p class="subtitle">Sign in</p>
     <form method="POST" action="/login">
       <div class="input-section">
         <input type="email" name="email" placeholder="Email" required />

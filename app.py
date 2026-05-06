@@ -1,14 +1,24 @@
-
+# Princess Ibtihaj
+# CS492
+# Prof. Madi
+# app.py
+# Flask application factory, database URI config, login manager, blueprint registration.
 
 from flask import Flask
 from views import main_blueprint
 from auth import auth_blueprint
 from models import db, User
 from flask_login import LoginManager
+from dotenv import load_dotenv
 import os
 
+load_dotenv()
+
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL').replace("postgres", "postgresql", 1)
+_database_url = os.environ.get('DATABASE_URL')
+if _database_url and _database_url.startswith('postgres://'):
+    _database_url = _database_url.replace('postgres://', 'postgresql://', 1)
+app.config['SQLALCHEMY_DATABASE_URI'] = _database_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 db.init_app(app)
